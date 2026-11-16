@@ -1,0 +1,4 @@
+[submodule "vendor/pajupilli"]
+	path = vendor/pajupilli
+	url = git@github.com:mahal/pajupilli.git
+	branch = mac-portability

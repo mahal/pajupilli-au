@@ -1,0 +1,83 @@
+# Xcode project for the pajupilli Audio Unit (AUv3 instrument).
+# Generate with:  xcodegen   (or ./build.sh, which also builds)
+name: Pajupilli
+options:
+  bundleIdPrefix: app.werckmeister
+  deploymentTarget:
+    macOS: "13.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    DEVELOPMENT_TEAM: 4MKMKFPC3E
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: "0.1"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_HARDENED_RUNTIME: YES
+targets:
+  Pajupilli:
+    type: application
+    platform: macOS
+    sources: [App]
+    dependencies:
+      - target: PajupilliAU
+        embed: true
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: Pajupilli
+        LSApplicationCategoryType: public.app-category.music
+        NSHumanReadableCopyright: "pajupilli by Jyrki Alakuijala"
+    entitlements:
+      path: App/Pajupilli.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.werckmeister.pajupilli
+        SWIFT_VERSION: "5.0"
+  PajupilliAU:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: Extension
+      - path: vendor/pajupilli/src
+        name: pajupilli
+        excludes:
+          - main.cc      # the command line program
+          - live.cc      # ALSA (Linux) audio and MIDI
+          - midifile.cc  # ALSA playback
+    info:
+      path: Extension/Info.plist
+      properties:
+        CFBundleDisplayName: Pajupilli
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.AudioUnit
+          NSExtensionPrincipalClass: PajupilliAUFactory
+          NSExtensionAttributes:
+            AudioComponents:
+              - name: "Werckmeister: Pajupilli"
+                description: Physical models of winds, brass, pianos and more
+                manufacturer: Pjpl
+                type: aumu
+                subtype: pjpl
+                version: 65536
+                sandboxSafe: true
+                tags: [Synthesizer]
+    entitlements:
+      path: Extension/PajupilliAU.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+    dependencies:
+      - sdk: AudioToolbox.framework
+      - sdk: AVFoundation.framework
+      - sdk: CoreAudioKit.framework
+      - sdk: CoreMIDI.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.werckmeister.pajupilli.AU
+        CLANG_CXX_LANGUAGE_STANDARD: c++17
+        # The models must run fast even in Debug, or they cannot keep up.
+        GCC_OPTIMIZATION_LEVEL: "3"
+        OTHER_CPLUSPLUSFLAGS: ["$(inherited)", "-ffast-math", "-fno-finite-math-only"]
+        HEADER_SEARCH_PATHS: ["$(SRCROOT)/vendor/pajupilli/src"]
+        SKIP_INSTALL: YES
