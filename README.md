@@ -14,10 +14,16 @@ Unit around it.
     git clone --recursive <this repository>
     git submodule update --init      # if cloned without --recursive
 
-The submodule follows the `mac-portability` branch of a fork until those
-changes (the calibration cache and the Bessel functions on macOS, just
-intonation switchable while playing) are in pajupilli itself. To take a newer
-pajupilli:
+The submodule follows the `au-vendor` branch of a fork: pajupilli's `main`
+plus what the plug-in still needs and pajupilli does not have yet:
+
+- `mac-portability`: the calibration cache on macOS, just intonation
+  switchable while playing (offered to pajupilli as a pull request);
+- `libcxx-bessel`: `std::cyl_bessel_j/_i` for the drum kit, which libc++
+  (macOS) does not have (reported to pajupilli, a stopgap here).
+
+Once pajupilli has them, the submodule can follow pajupilli's `main`. To take
+a newer pajupilli: merge its `main` into `au-vendor`, then
 
     git -C vendor/pajupilli pull && git add vendor/pajupilli
 
