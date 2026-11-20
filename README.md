@@ -18,17 +18,17 @@ The submodule follows the `au-vendor` branch of a fork: pajupilli's `main`
 plus what the plug-in still needs and pajupilli does not have yet:
 
 - `mac-portability`: the calibration caches on macOS (instruments and
-  organ), just intonation switchable while playing (offered to pajupilli as
-  a pull request);
+  organ), offered to pajupilli as a pull request;
 - `libcxx-bessel`: `std::cyl_bessel_j/_i` for the drums, cymbals, timpani and
   sci-fi sounds, which libc++ (macOS) does not have (reported to
-  pajupilli, a stopgap here).
+  pajupilli, a stopgap here);
+- `just-intonation-switch`: just intonation on or off while playing, for the
+  *Just Intonation* parameter (for a later pull request).
 
-`au-vendor` is pajupilli's `main` with those two branches merged in. Once
+`au-vendor` is pajupilli's `main` with those three branches merged in. Once
 pajupilli has them, the submodule can follow pajupilli's `main`. To take a
 newer pajupilli: rebase both branches on its `main`, build `au-vendor` again
-from it (`git reset --hard <pajupilli>/main`, then merge `mac-portability`
-and `libcxx-bessel`), push the three, and here
+from it (`git reset --hard <pajupilli>/main`, then merge the three branches), push the three, and here
 
     git -C vendor/pajupilli fetch && git -C vendor/pajupilli checkout origin/au-vendor
     git add vendor/pajupilli
