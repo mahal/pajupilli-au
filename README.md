@@ -27,8 +27,9 @@ plus what the plug-in still needs and pajupilli does not have yet:
 
 `au-vendor` is pajupilli's `main` with those three branches merged in. Once
 pajupilli has them, the submodule can follow pajupilli's `main`. To take a
-newer pajupilli: rebase both branches on its `main`, build `au-vendor` again
-from it (`git reset --hard <pajupilli>/main`, then merge the three branches), push the three, and here
+newer pajupilli: rebase the three branches on its `main`, build `au-vendor`
+again from it (`git reset --hard <pajupilli>/main`, then merge the three),
+push them all, and here
 
     git -C vendor/pajupilli fetch && git -C vendor/pajupilli checkout origin/au-vendor
     git add vendor/pajupilli
