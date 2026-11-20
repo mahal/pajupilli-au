@@ -17,15 +17,21 @@ Unit around it.
 The submodule follows the `au-vendor` branch of a fork: pajupilli's `main`
 plus what the plug-in still needs and pajupilli does not have yet:
 
-- `mac-portability`: the calibration cache on macOS, just intonation
-  switchable while playing (offered to pajupilli as a pull request);
-- `libcxx-bessel`: `std::cyl_bessel_j/_i` for the drum kit, which libc++
-  (macOS) does not have (reported to pajupilli, a stopgap here).
+- `mac-portability`: the calibration caches on macOS (instruments and
+  organ), just intonation switchable while playing (offered to pajupilli as
+  a pull request);
+- `libcxx-bessel`: `std::cyl_bessel_j/_i` for the drums, cymbals, timpani and
+  sci-fi sounds, which libc++ (macOS) does not have (reported to
+  pajupilli, a stopgap here).
 
-Once pajupilli has them, the submodule can follow pajupilli's `main`. To take
-a newer pajupilli: merge its `main` into `au-vendor`, then
+`au-vendor` is pajupilli's `main` with those two branches merged in. Once
+pajupilli has them, the submodule can follow pajupilli's `main`. To take a
+newer pajupilli: rebase both branches on its `main`, build `au-vendor` again
+from it (`git reset --hard <pajupilli>/main`, then merge `mac-portability`
+and `libcxx-bessel`), push the three, and here
 
-    git -C vendor/pajupilli pull && git add vendor/pajupilli
+    git -C vendor/pajupilli fetch && git -C vendor/pajupilli checkout origin/au-vendor
+    git add vendor/pajupilli
 
 ## Build and install
 
@@ -64,7 +70,7 @@ The old player plays on until the new one is ready.
 
 | Group | Parameter | Range | Default |
 |---|---|---|---|
-| Instrument | Instrument | every one of `-inst` (127 now) | flute |
+| Instrument | Instrument | every one of `-inst` (187 now) | flute |
 | | Room | dry, booth, studio, hall, church, gated | hall |
 | | Voices | 1–16 | 8 |
 | | Transpose | ±36 semitones (keys outside the range fold in by octaves) | 0 |

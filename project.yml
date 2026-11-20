@@ -10,8 +10,8 @@ settings:
   base:
     DEVELOPMENT_TEAM: 4MKMKFPC3E
     CODE_SIGN_STYLE: Automatic
-    MARKETING_VERSION: "0.1"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "0.1.1"
+    CURRENT_PROJECT_VERSION: "2"
     ENABLE_HARDENED_RUNTIME: YES
 targets:
   Pajupilli:
@@ -60,7 +60,7 @@ targets:
                 manufacturer: Pjpl
                 type: aumu
                 subtype: pjpl
-                version: 65536
+                version: 65537
                 sandboxSafe: true
                 tags: [Synthesizer]
     entitlements:
